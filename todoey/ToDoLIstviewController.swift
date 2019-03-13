@@ -10,7 +10,7 @@ import UIKit
 
 class ToDoLIstviewController: UITableViewController {
 
-    let itemArray = ["Find Milk","Buy Eggos","Destroy Demogorgon"]
+    var itemArray = ["Find Milk","Buy Eggos","Destroy Demogorgon"]
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -32,9 +32,6 @@ class ToDoLIstviewController: UITableViewController {
         
     }
     //MARK: Tableview Delegate Methom
-//    @objc func tableViewtapped()  {
-//
-//    }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //print(itemArray[indexPath.row])
@@ -46,6 +43,25 @@ class ToDoLIstviewController: UITableViewController {
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
+    //MARK: Add New item
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            //what will happen when user clicks the add Item button on our UIAlert
+            
+            self.itemArray.append(textField.text!)
+            self.tableView.reloadData()
+        }
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Creat New Item"
+            textField = alertTextField
+            
+        }
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
 }
 
